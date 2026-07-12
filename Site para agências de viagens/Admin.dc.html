@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <template id="__bundler_thumbnail">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+      <rect width="200" height="200" fill="#ffffff"></rect>
+      <rect x="60" y="60" width="80" height="80" rx="14" fill="#14161a"></rect>
+      <text x="100" y="108" text-anchor="middle" font-family="sans-serif" font-weight="800" font-size="26" fill="#e7e7e7">GL</text>
+    </svg>
+  </template>
+  <meta charset="utf-8"></meta>
+  <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <title>Admin — Blog GL Negócios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"></link>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"></link>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0; }
+    a { color: #0E7C8C; text-decoration: none; }
+    input, textarea, select { font-family: 'Poppins', sans-serif; }
+    input:focus, textarea:focus, select:focus { outline: 2px solid #0E7C8C33; border-color:#0E7C8C !important; }
+  </style>
+</helmet>
+
+<div style="font-family: 'Poppins', sans-serif; background:#FAFBFC; color:#16181d; min-height:100vh;">
+
+  <sc-if value="{{ notConfigured }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:520px; margin:0 auto; padding:60px 24px; text-align:center;">
+      <h2 style="font-size:20px; font-weight:700;">Supabase não configurado</h2>
+      <p style="color:#5b5f68; font-size:14.5px;">Edite <code>supabase-config.js</code> com sua URL e chave, e siga <code>SETUP-BLOG-ADMIN.md</code>.</p>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showLogin }}" hint-placeholder-val="{{ false }}">
+    <div style="min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;">
+      <form onSubmit="{{ onLogin }}" style="width:100%; max-width:380px; background:#fff; border:1px solid #eef0f2; border-radius:18px; padding:34px 30px; box-shadow:0 20px 50px -24px rgba(20,30,40,0.2); display:flex; flex-direction:column; gap:14px;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+          <div style="width:34px; height:34px; border-radius:8px; background:#14161a; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+            <img src="assets/gl-logo.png" alt="GL" style="width:94%; height:94%; object-fit:contain;"></img>
+          </div>
+          <span style="font-weight:700; font-size:15px;">Painel Admin</span>
+        </div>
+        <label style="font-size:12.5px; font-weight:600; color:#5b5f68;">E-mail
+          <input type="email" value="{{ loginEmail }}" onChange="{{ onLoginEmailChange }}" required="{{ true }}" style="width:100%; margin-top:6px; padding:11px 13px; border:1px solid #e2e5e9; border-radius:10px; font-size:14px;"></input>
+        </label>
+        <label style="font-size:12.5px; font-weight:600; color:#5b5f68;">Senha
+          <input type="password" value="{{ loginPassword }}" onChange="{{ onLoginPasswordChange }}" required="{{ true }}" style="width:100%; margin-top:6px; padding:11px 13px; border:1px solid #e2e5e9; border-radius:10px; font-size:14px;"></input>
+        </label>
+        <sc-if value="{{ loginError }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:13px; color:#c0392b;">{{ loginErrorMsg }}</div>
+        </sc-if>
+        <button type="submit" disabled="{{ loginLoading }}" style="margin-top:8px; background:#0E7C8C; color:#fff; border:none; padding:13px; border-radius:10px; font-weight:700; font-size:14.5px; cursor:pointer;">{{ loginButtonLabel }}</button>
+      </form>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showAccessDenied }}" hint-placeholder-val="{{ false }}">
+    <div style="min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;">
+      <div style="max-width:420px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:14px;">
+        <div style="width:44px; height:44px; border-radius:12px; background:#FBF6EC; display:flex; align-items:center; justify-content:center; font-size:20px;">🔒</div>
+        <h2 style="font-size:19px; font-weight:700; margin:0;">Acesso restrito</h2>
+        <p style="color:#5b5f68; font-size:14px; line-height:1.6; margin:0;">Sua conta ({{ deniedEmail }}) não tem permissão de administrador. Fale com quem gerencia o projeto para liberar seu acesso.</p>
+        <button onClick="{{ onLogout }}" style="margin-top:8px; background:#fff; border:1px solid #e2e5e9; color:#5b5f68; padding:10px 20px; border-radius:100px; font-weight:700; font-size:13.5px; cursor:pointer;">Sair</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showDashboard }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <header style="display:flex; align-items:center; justify-content:space-between; gap:16px; padding:16px 5vw; background:#fff; border-bottom:1px solid #eef0f2; position:sticky; top:0; z-index:10;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div style="width:34px; height:34px; border-radius:8px; background:#14161a; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+            <img src="assets/gl-logo.png" alt="GL" style="width:94%; height:94%; object-fit:contain;"></img>
+          </div>
+          <span style="font-weight:700; font-size:15px;">Painel de Blog</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px;">
+          <span style="{{ roleBadgeStyle }}">{{ roleLabel }}</span>
+          <a href="./Blog.dc.html" target="_blank" style="font-size:13px; font-weight:600; color:#5b5f68;">Ver blog ↗</a>
+          <button onClick="{{ onLogout }}" style="background:#fff; border:1px solid #e2e5e9; padding:9px 16px; border-radius:100px; font-size:13px; font-weight:600; cursor:pointer; color:#5b5f68;">Sair</button>
+        </div>
+      </header>
+
+      <div style="max-width:1200px; margin:0 auto; padding:28px 5vw 80px; display:grid; grid-template-columns:minmax(280px,340px) 1fr; gap:26px; align-items:start;">
+
+        <!-- LIST -->
+        <div style="background:#fff; border:1px solid #eef0f2; border-radius:16px; overflow:hidden;">
+          <div style="padding:16px 18px; border-bottom:1px solid #eef0f2; display:flex; align-items:center; justify-content:space-between;">
+            <span style="font-weight:700; font-size:14px;">Artigos</span>
+            <button onClick="{{ onNewPost }}" style="background:#0E7C8C; color:#fff; border:none; padding:8px 14px; border-radius:100px; font-size:12.5px; font-weight:700; cursor:pointer;">+ Novo</button>
+          </div>
+          <sc-if value="{{ listLoading }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:24px; color:#8a8f98; font-size:13.5px;">Carregando…</div>
+          </sc-if>
+          <sc-if value="{{ listEmpty }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:24px; color:#8a8f98; font-size:13.5px;">Nenhum artigo ainda.</div>
+          </sc-if>
+          <div style="max-height:70vh; overflow-y:auto;">
+            <sc-for list="{{ postList }}" as="p" hint-placeholder-count="0">
+              <div onClick="{{ p.onSelect }}" style="{{ p.rowStyle }}">
+                <div style="display:flex; flex-direction:column; gap:3px; min-width:0;">
+                  <span style="font-size:13.5px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ p.title }}</span>
+                  <span style="font-size:11.5px; color:#8a8f98;">{{ p.categoryLabel }}</span>
+                </div>
+                <span style="{{ p.badgeStyle }}">{{ p.statusLabel }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- EDITOR -->
+        <sc-if value="{{ showEditor }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#fff; border:1px solid #eef0f2; border-radius:16px; padding:26px; display:flex; flex-direction:column; gap:18px;">
+
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+              <span style="font-weight:700; font-size:15px;">{{ editorHeading }}</span>
+              <div style="display:flex; gap:8px;">
+                <sc-if value="{{ isEditingExisting }}" hint-placeholder-val="{{ false }}">
+                  <button onClick="{{ onDelete }}" style="background:#fff; border:1px solid #f0c2c2; color:#c0392b; padding:9px 14px; border-radius:100px; font-size:12.5px; font-weight:700; cursor:pointer;">Excluir</button>
+                </sc-if>
+              </div>
+            </div>
+
+            <label style="font-size:12.5px; font-weight:600; color:#5b5f68;">Título
+              <input type="text" value="{{ form.title }}" onChange="{{ onFieldChange_title }}" style="width:100%; margin-top:6px; padding:11px 13px; border:1px solid #e2e5e9; border-radius:10px; font-size:14.5px;"></input>
+            </label>
+
+            <label style="font-size:12.5px; font-weight:600; color:#5b5f68;">Slug (URL)
+              <input type="text" value="{{ form.slug }}" onChange="{{ onFieldChange_slug }}" style="width:100%; margin-top:6px; padding:11px 13px; border:1px solid #e2e5e9; border-radius:10px; font-size:13.5px; color:#5b5f68; font-family:monospace;"></input>
+            </label>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+              <label style="font-size:12.5px; font-weight:600; color:#5b5f68;">Categoria
+                <input type="text" value="{{ form.category }}" onChange="{{ onFieldChange_category }}" placeholder="ex: Marketing" style="width:100%; margin-top:6px; padding:11px 13px; border:1px solid #e2e5e9; border-radius:10px; font-size:14px;"></input>
+              </label>
+              <label style="font-size:12.5px; font-weight:600; color:#5b5f68;">Status
+                <select value="{{ form.status }}" onChange="{{ onFieldChange_status }}" style="width:100%; margin-top:6px; padding:11px 13px; border:1px solid #e2e5e9; border-radius:10px; font-size:14px; background:#fff;">
+                  <option value="draft">Rascunho</option>
+                  <option value="published">Publicado</option>
+                </select>
+              </label>
+            </div>
+
+            <label style="font-size:12.5px; font-weight:600; color:#5b5f68;">Imagem de capa
+              <div style="display:flex; align-items:center; gap:12px; margin-top:8px;">
+                <div style="{{ coverPreviewStyle }}"></div>
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                  <input type="file" accept="image/*" onChange="{{ onCoverFileChange }}"></input>
+                  <span style="font-size:11.5px; color:#8a8f98;">{{ uploadStatusLabel }}</span>
+                </div>
+              </div>
+            </label>
+
+            <label style="font-size:12.5px; font-weight:600; color:#5b5f68;">Conteúdo (HTML simples: parágrafos, &lt;h2&gt;, &lt;img&gt;)
+              <textarea value="{{ form.content }}" onChange="{{ onFieldChange_content }}" rows="10" style="width:100%; margin-top:6px; padding:12px 13px; border:1px solid #e2e5e9; border-radius:10px; font-size:13.5px; font-family:monospace; line-height:1.6; resize:vertical;"></textarea>
+            </label>
+
+            <div style="border-top:1px solid #eef0f2; padding-top:16px; display:flex; flex-direction:column; gap:12px;">
+              <span style="font-size:12.5px; font-weight:700; color:#8a8f98; letter-spacing:0.5px;">SEO</span>
+              <label style="font-size:12.5px; font-weight:600; color:#5b5f68;">Meta título
+                <input type="text" value="{{ form.meta_title }}" onChange="{{ onFieldChange_meta_title }}" style="width:100%; margin-top:6px; padding:11px 13px; border:1px solid #e2e5e9; border-radius:10px; font-size:14px;"></input>
+              </label>
+              <label style="font-size:12.5px; font-weight:600; color:#5b5f68;">Meta descrição
+                <textarea value="{{ form.meta_description }}" onChange="{{ onFieldChange_meta_description }}" rows="2" style="width:100%; margin-top:6px; padding:11px 13px; border:1px solid #e2e5e9; border-radius:10px; font-size:14px; resize:vertical;"></textarea>
+              </label>
+            </div>
+
+            <sc-if value="{{ saveError }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:13px; color:#c0392b;">{{ saveErrorMsg }}</div>
+            </sc-if>
+
+            <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:6px;">
+              <button onClick="{{ onSaveDraft }}" disabled="{{ saving }}" style="background:#fff; border:1px solid #e2e5e9; color:#5b5f68; padding:11px 20px; border-radius:100px; font-weight:700; font-size:13.5px; cursor:pointer;">Salvar</button>
+              <button onClick="{{ onPublish }}" disabled="{{ saving }}" style="background:#0E7C8C; color:#fff; border:none; padding:11px 22px; border-radius:100px; font-weight:700; font-size:13.5px; cursor:pointer;">{{ publishButtonLabel }}</button>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ showEditorEmptyState }}" hint-placeholder-val="{{ true }}">
+          <div style="background:#fff; border:1px dashed #e2e5e9; border-radius:16px; padding:60px 20px; text-align:center; color:#8a8f98; font-size:14px;">
+            Selecione um artigo à esquerda ou clique em “+ Novo”.
+          </div>
+        </sc-if>
+
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const EMPTY_FORM = {
+  id: null,
+  title: '',
+  slug: '',
+  content: '',
+  cover_image_url: '',
+  category: '',
+  meta_title: '',
+  meta_description: '',
+  status: 'draft'
+};
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cfgLoaded: false,
+      notConfigured: false,
+      session: null,
+      authChecked: false,
+      profile: null,
+      profileChecked: false,
+      loginEmail: '',
+      loginPassword: '',
+      loginLoading: false,
+      loginErrorMsg: '',
+      posts: [],
+      listLoading: true,
+      selectedId: 'new',
+      form: { ...EMPTY_FORM },
+      saving: false,
+      saveErrorMsg: '',
+      uploadStatusLabel: '',
+      slugTouched: false
+    };
+    this._cfg = null;
+    this._supabase = null;
+  }
+
+  async componentDidMount() {
+    try {
+      this._cfg = await import('./supabase-config.js');
+      if (!this._cfg.SUPABASE_CONFIGURED) {
+        this.setState({ notConfigured: true, authChecked: true });
+        return;
+      }
+      this._supabase = await this._cfg.getSupabase();
+      const { data } = await this._supabase.auth.getSession();
+      this.setState({ session: data.session || null, authChecked: true });
+      if (data.session) {
+        this.loadProfile(data.session.user.id);
+        this.loadPosts();
+      }
+      this._supabase.auth.onAuthStateChange((_event, session) => {
+        this.setState({ session, profile: null, profileChecked: false });
+        if (session) {
+          this.loadProfile(session.user.id);
+          this.loadPosts();
+        }
+      });
+    } catch (e) {
+      console.error(e);
+      this.setState({ notConfigured: true, authChecked: true });
+    }
+  }
+
+  async loadProfile(userId) {
+    try {
+      const { data, error } = await this._supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .maybeSingle();
+      if (error) throw error;
+      this.setState({ profile: data, profileChecked: true });
+    } catch (e) {
+      console.error(e);
+      this.setState({ profile: null, profileChecked: true });
+    }
+  }
+
+  async loadPosts() {
+    this.setState({ listLoading: true });
+    try {
+      const { data, error } = await this._supabase
+        .from('posts')
+        .select('*')
+        .order('updated_at', { ascending: false });
+      if (error) throw error;
+      this.setState({ posts: data || [], listLoading: false });
+    } catch (e) {
+      console.error(e);
+      this.setState({ posts: [], listLoading: false });
+    }
+  }
+
+  handleLogin = async (e) => {
+    e.preventDefault();
+    this.setState({ loginLoading: true, loginErrorMsg: '' });
+    try {
+      const { error } = await this._supabase.auth.signInWithPassword({
+        email: this.state.loginEmail,
+        password: this.state.loginPassword
+      });
+      if (error) throw error;
+    } catch (e) {
+      this.setState({ loginErrorMsg: 'E-mail ou senha inválidos.' });
+    } finally {
+      this.setState({ loginLoading: false });
+    }
+  };
+
+  handleLogout = async () => {
+    await this._supabase.auth.signOut();
+    this.setState({ selectedId: 'new', form: { ...EMPTY_FORM } });
+  };
+
+  selectPost = (post) => {
+    this.setState({
+      selectedId: post.id,
+      slugTouched: true,
+      form: {
+        id: post.id,
+        title: post.title || '',
+        slug: post.slug || '',
+        content: post.content || '',
+        cover_image_url: post.cover_image_url || '',
+        category: post.category || '',
+        meta_title: post.meta_title || '',
+        meta_description: post.meta_description || '',
+        status: post.status || 'draft'
+      },
+      saveErrorMsg: '',
+      uploadStatusLabel: ''
+    });
+  };
+
+  newPost = () => {
+    this.setState({ selectedId: 'new', slugTouched: false, form: { ...EMPTY_FORM }, saveErrorMsg: '', uploadStatusLabel: '' });
+  };
+
+  setField = (key, value) => {
+    this.setState((s) => {
+      const form = { ...s.form, [key]: value };
+      let slugTouched = s.slugTouched;
+      if (key === 'title' && !s.slugTouched) {
+        form.slug = this._cfg.slugify(value);
+      }
+      if (key === 'slug') slugTouched = true;
+      return { form, slugTouched };
+    });
+  };
+
+  handleCoverFile = async (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    this.setState({ uploadStatusLabel: 'Enviando…' });
+    try {
+      const ext = file.name.split('.').pop();
+      const path = 'covers/' + Date.now() + '-' + Math.random().toString(36).slice(2) + '.' + ext;
+      const { error } = await this._supabase.storage.from('blog-images').upload(path, file, { upsert: true });
+      if (error) throw error;
+      const { data } = this._supabase.storage.from('blog-images').getPublicUrl(path);
+      this.setField('cover_image_url', data.publicUrl);
+      this.setState({ uploadStatusLabel: 'Imagem enviada ✓' });
+    } catch (e) {
+      console.error(e);
+      this.setState({ uploadStatusLabel: 'Falha no upload.' });
+    }
+  };
+
+  savePost = async (statusOverride) => {
+    const f = this.state.form;
+    if (!f.title || !f.slug) {
+      this.setState({ saveErrorMsg: 'Título e slug são obrigatórios.' });
+      return;
+    }
+    this.setState({ saving: true, saveErrorMsg: '' });
+    try {
+      const payload = {
+        title: f.title,
+        slug: f.slug,
+        content: f.content,
+        cover_image_url: f.cover_image_url || null,
+        category: f.category || null,
+        meta_title: f.meta_title || null,
+        meta_description: f.meta_description || null,
+        status: statusOverride || f.status,
+        updated_at: new Date().toISOString()
+      };
+      if (payload.status === 'published') {
+        payload.published_at = new Date().toISOString();
+      }
+      let result;
+      if (f.id) {
+        result = await this._supabase.from('posts').update(payload).eq('id', f.id).select().single();
+      } else {
+        result = await this._supabase.from('posts').insert(payload).select().single();
+      }
+      if (result.error) throw result.error;
+      this.setState({ selectedId: result.data.id, form: { ...this.state.form, id: result.data.id, status: result.data.status } });
+      await this.loadPosts();
+    } catch (e) {
+      console.error(e);
+      this.setState({ saveErrorMsg: 'Erro ao salvar. Verifique o slug (deve ser único).' });
+    } finally {
+      this.setState({ saving: false });
+    }
+  };
+
+  deletePost = async () => {
+    const id = this.state.form.id;
+    if (!id) return;
+    if (!window.confirm('Excluir este artigo definitivamente?')) return;
+    try {
+      const { error } = await this._supabase.from('posts').delete().eq('id', id);
+      if (error) throw error;
+      this.newPost();
+      await this.loadPosts();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  renderVals() {
+    const s = this.state;
+    const showLogin = s.authChecked && !s.notConfigured && !s.session;
+    const isAdmin = !!s.profile && s.profile.role === 'admin';
+    const showDashboard = s.authChecked && !s.notConfigured && !!s.session && s.profileChecked && isAdmin;
+    const showAccessDenied = s.authChecked && !s.notConfigured && !!s.session && s.profileChecked && !isAdmin;
+
+    const postList = (s.posts || []).map((p) => {
+      const selected = p.id === s.selectedId;
+      const published = p.status === 'published';
+      return {
+        title: p.title,
+        categoryLabel: p.category || 'Sem categoria',
+        statusLabel: published ? 'Publicado' : 'Rascunho',
+        badgeStyle: 'font-size:10.5px; font-weight:700; padding:3px 9px; border-radius:100px; white-space:nowrap; ' +
+          (published ? 'background:#EEF7F8; color:#0E7C8C;' : 'background:#F4F0E3; color:#8a6d1f;'),
+        rowStyle: 'display:flex; align-items:center; justify-content:space-between; gap:10px; padding:13px 18px; border-bottom:1px solid #f2f3f5; cursor:pointer; ' +
+          (selected ? 'background:#F5FAFB;' : 'background:#fff;'),
+        onSelect: () => this.selectPost(p)
+      };
+    });
+
+    const isEditingExisting = !!s.form.id;
+    const coverPreviewStyle = 'width:56px; height:56px; border-radius:10px; background:#f4f5f7; flex-shrink:0; background-size:cover; background-position:center;' +
+      (s.form.cover_image_url ? (" background-image:url('" + s.form.cover_image_url + "');") : '');
+
+    return {
+      notConfigured: s.notConfigured,
+      showLogin,
+      showDashboard,
+      showAccessDenied,
+      deniedEmail: s.session ? s.session.user.email : '',
+      roleLabel: isAdmin ? 'Administrador' : 'Usuário',
+      roleBadgeStyle: 'font-size:10.5px; font-weight:700; padding:4px 10px; border-radius:100px; background:#EEF7F8; color:#0E7C8C;',
+      loginEmail: s.loginEmail,
+      loginPassword: s.loginPassword,
+      loginLoading: s.loginLoading,
+      loginError: !!s.loginErrorMsg,
+      loginErrorMsg: s.loginErrorMsg,
+      loginButtonLabel: s.loginLoading ? 'Entrando…' : 'Entrar',
+      onLogin: this.handleLogin,
+      onLoginEmailChange: (e) => this.setState({ loginEmail: e.target.value }),
+      onLoginPasswordChange: (e) => this.setState({ loginPassword: e.target.value }),
+      onLogout: this.handleLogout,
+      listLoading: s.listLoading,
+      listEmpty: !s.listLoading && postList.length === 0,
+      postList,
+      onNewPost: this.newPost,
+      showEditor: true,
+      showEditorEmptyState: false,
+      editorHeading: isEditingExisting ? 'Editar artigo' : 'Novo artigo',
+      isEditingExisting,
+      form: s.form,
+      onFieldChange_title: (e) => this.setField('title', e.target.value),
+      onFieldChange_slug: (e) => this.setField('slug', e.target.value),
+      onFieldChange_category: (e) => this.setField('category', e.target.value),
+      onFieldChange_status: (e) => this.setField('status', e.target.value),
+      onFieldChange_content: (e) => this.setField('content', e.target.value),
+      onFieldChange_meta_title: (e) => this.setField('meta_title', e.target.value),
+      onFieldChange_meta_description: (e) => this.setField('meta_description', e.target.value),
+      onCoverFileChange: this.handleCoverFile,
+      coverPreviewStyle,
+      uploadStatusLabel: s.uploadStatusLabel,
+      saveError: !!s.saveErrorMsg,
+      saveErrorMsg: s.saveErrorMsg,
+      saving: s.saving,
+      onSaveDraft: () => this.savePost(),
+      onPublish: () => this.savePost('published'),
+      publishButtonLabel: s.form.status === 'published' ? 'Salvar publicado' : 'Publicar',
+      onDelete: this.deletePost
+    };
+  }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <template id="__bundler_thumbnail">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+      <rect width="200" height="200" fill="#ffffff"></rect>
+      <rect x="60" y="60" width="80" height="80" rx="14" fill="#14161a"></rect>
+      <text x="100" y="108" text-anchor="middle" font-family="sans-serif" font-weight="800" font-size="26" fill="#e7e7e7">GL</text>
+    </svg>
+  </template>
+  <meta charset="utf-8"></meta>
+  <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <title>Entrar — GL Negócios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"></link>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"></link>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0; }
+    a { color: #0E7C8C; text-decoration: none; }
+    input { font-family: 'Poppins', sans-serif; }
+    input:focus { outline: 2px solid #0E7C8C33; border-color:#0E7C8C !important; }
+  </style>
+</helmet>
+
+<div style="font-family: 'Poppins', sans-serif; background:#ffffff; color:#16181d; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;">
+
+  <div style="width:100%; max-width:400px; display:flex; flex-direction:column; gap:20px;">
+    <a href="./GL Metodo G3.dc.html" style="display:flex; align-items:center; gap:10px; justify-content:center;">
+      <div style="width:36px; height:36px; border-radius:8px; background:#14161a; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+        <img src="assets/gl-logo.png" alt="GL" style="width:94%; height:94%; object-fit:contain;"></img>
+      </div>
+      <span style="font-weight:700; font-size:15px; color:#16181d;">GL Negócios</span>
+    </a>
+
+    <div style="background:#fff; border:1px solid #eef0f2; border-radius:18px; padding:30px 28px; box-shadow:0 20px 50px -24px rgba(20,30,40,0.2);">
+
+      <div style="display:flex; gap:4px; background:#F4F5F7; padding:4px; border-radius:100px; margin-bottom:24px;">
+        <button onClick="{{ onTabLogin }}" style="{{ tabLoginStyle }}">Entrar</button>
+        <button onClick="{{ onTabSignup }}" style="{{ tabSignupStyle }}">Cadastrar</button>
+        <button onClick="{{ onTabReset }}" style="{{ tabResetStyle }}">Recuperar</button>
+      </div>
+
+      <sc-if value="{{ showLoginForm }}" hint-placeholder-val="{{ true }}">
+        <form onSubmit="{{ onLogin }}" style="display:flex; flex-direction:column; gap:14px;">
+          <h2 style="font-size:17px; font-weight:700; margin:0;">Bem-vindo de volta</h2>
+          <label style="font-size:12.5px; font-weight:600; color:#5b5f68;">E-mail
+            <input type="email" value="{{ email }}" onChange="{{ onEmailChange }}" required="{{ true }}" style="width:100%; margin-top:6px; padding:11px 13px; border:1px solid #e2e5e9; border-radius:10px; font-size:14px;"></input>
+          </label>
+          <label style="font-size:12.5px; font-weight:600; color:#5b5f68;">Senha
+            <input type="password" value="{{ password }}" onChange="{{ onPasswordChange }}" required="{{ true }}" style="width:100%; margin-top:6px; padding:11px 13px; border:1px solid #e2e5e9; border-radius:10px; font-size:14px;"></input>
+          </label>
+          <sc-if value="{{ hasMessage }}" hint-placeholder-val="{{ false }}">
+            <div style="{{ messageStyle }}">{{ messageText }}</div>
+          </sc-if>
+          <button type="submit" disabled="{{ loading }}" style="margin-top:4px; background:#0E7C8C; color:#fff; border:none; padding:13px; border-radius:10px; font-weight:700; font-size:14.5px; cursor:pointer;">{{ submitLabel }}</button>
+        </form>
+      </sc-if>
+
+      <sc-if value="{{ showSignupForm }}" hint-placeholder-val="{{ false }}">
+        <form onSubmit="{{ onSignup }}" style="display:flex; flex-direction:column; gap:14px;">
+          <h2 style="font-size:17px; font-weight:700; margin:0;">Criar sua conta</h2>
+          <label style="font-size:12.5px; font-weight:600; color:#5b5f68;">Nome
+            <input type="text" value="{{ fullName }}" onChange="{{ onFullNameChange }}" required="{{ true }}" style="width:100%; margin-top:6px; padding:11px 13px; border:1px solid #e2e5e9; border-radius:10px; font-size:14px;"></input>
+          </label>
+          <label style="font-size:12.5px; font-weight:600; color:#5b5f68;">E-mail
+            <input type="email" value="{{ email }}" onChange="{{ onEmailChange }}" required="{{ true }}" style="width:100%; margin-top:6px; padding:11px 13px; border:1px solid #e2e5e9; border-radius:10px; font-size:14px;"></input>
+          </label>
+          <label style="font-size:12.5px; font-weight:600; color:#5b5f68;">Senha
+            <input type="password" value="{{ password }}" onChange="{{ onPasswordChange }}" required="{{ true }}" style="width:100%; margin-top:6px; padding:11px 13px; border:1px solid #e2e5e9; border-radius:10px; font-size:14px;"></input>
+          </label>
+          <sc-if value="{{ hasMessage }}" hint-placeholder-val="{{ false }}">
+            <div style="{{ messageStyle }}">{{ messageText }}</div>
+          </sc-if>
+          <button type="submit" disabled="{{ loading }}" style="margin-top:4px; background:#0E7C8C; color:#fff; border:none; padding:13px; border-radius:10px; font-weight:700; font-size:14.5px; cursor:pointer;">{{ submitLabel }}</button>
+        </form>
+      </sc-if>
+
+      <sc-if value="{{ showResetForm }}" hint-placeholder-val="{{ false }}">
+        <form onSubmit="{{ onReset }}" style="display:flex; flex-direction:column; gap:14px;">
+          <h2 style="font-size:17px; font-weight:700; margin:0;">Recuperar senha</h2>
+          <p style="font-size:13px; color:#8a8f98; margin:0;">Enviamos um link de redefinição para o seu e-mail.</p>
+          <label style="font-size:12.5px; font-weight:600; color:#5b5f68;">E-mail
+            <input type="email" value="{{ email }}" onChange="{{ onEmailChange }}" required="{{ true }}" style="width:100%; margin-top:6px; padding:11px 13px; border:1px solid #e2e5e9; border-radius:10px; font-size:14px;"></input>
+          </label>
+          <sc-if value="{{ hasMessage }}" hint-placeholder-val="{{ false }}">
+            <div style="{{ messageStyle }}">{{ messageText }}</div>
+          </sc-if>
+          <button type="submit" disabled="{{ loading }}" style="margin-top:4px; background:#0E7C8C; color:#fff; border:none; padding:13px; border-radius:10px; font-weight:700; font-size:14.5px; cursor:pointer;">{{ submitLabel }}</button>
+        </form>
+      </sc-if>
+
+    </div>
+
+    <sc-if value="{{ notConfigured }}" hint-placeholder-val="{{ false }}">
+      <div style="text-align:center; font-size:12.5px; color:#8a8f98;">Supabase não configurado — veja README.md</div>
+    </sc-if>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    tab: 'login',
+    email: '',
+    password: '',
+    fullName: '',
+    loading: false,
+    messageText: '',
+    messageIsError: false,
+    notConfigured: false
+  };
+
+  async componentDidMount() {
+    this._cfg = await import('./supabase-config.js');
+    if (!this._cfg.SUPABASE_CONFIGURED) {
+      this.setState({ notConfigured: true });
+      return;
+    }
+    this._supabase = await this._cfg.getSupabase();
+    const { data } = await this._supabase.auth.getSession();
+    if (data.session) window.location.href = './Dashboard.dc.html';
+  }
+
+  setTab = (tab) => this.setState({ tab, messageText: '' });
+
+  handleLogin = async (e) => {
+    e.preventDefault();
+    this.setState({ loading: true, messageText: '' });
+    try {
+      const { error } = await this._supabase.auth.signInWithPassword({
+        email: this.state.email,
+        password: this.state.password
+      });
+      if (error) throw error;
+      window.location.href = './Dashboard.dc.html';
+    } catch (e) {
+      this.setState({ messageText: 'E-mail ou senha inválidos.', messageIsError: true });
+    } finally {
+      this.setState({ loading: false });
+    }
+  };
+
+  handleSignup = async (e) => {
+    e.preventDefault();
+    this.setState({ loading: true, messageText: '' });
+    try {
+      const { error } = await this._supabase.auth.signUp({
+        email: this.state.email,
+        password: this.state.password,
+        options: { data: { full_name: this.state.fullName } }
+      });
+      if (error) throw error;
+      this.setState({ messageText: 'Conta criada! Verifique seu e-mail para confirmar (se exigido) e depois entre.', messageIsError: false, tab: 'login' });
+    } catch (e) {
+      this.setState({ messageText: e.message || 'Não foi possível criar a conta.', messageIsError: true });
+    } finally {
+      this.setState({ loading: false });
+    }
+  };
+
+  handleReset = async (e) => {
+    e.preventDefault();
+    this.setState({ loading: true, messageText: '' });
+    try {
+      const { error } = await this._supabase.auth.resetPasswordForEmail(this.state.email, {
+        redirectTo: window.location.origin + window.location.pathname.replace('Login.dc.html', 'ResetPassword.dc.html')
+      });
+      if (error) throw error;
+      this.setState({ messageText: 'Link de redefinição enviado. Confira seu e-mail.', messageIsError: false });
+    } catch (e) {
+      this.setState({ messageText: 'Não foi possível enviar o e-mail.', messageIsError: true });
+    } finally {
+      this.setState({ loading: false });
+    }
+  };
+
+  renderVals() {
+    const s = this.state;
+    const tabBase = 'flex:1; border:none; background:transparent; padding:9px 0; border-radius:100px; font-size:12.5px; font-weight:700; cursor:pointer; font-family:Poppins, sans-serif; transition:all 0.15s ease;';
+    const tabActive = tabBase + 'background:#fff; color:#16181d; box-shadow:0 2px 6px -2px rgba(20,30,40,0.15);';
+    const tabInactive = tabBase + 'color:#8a8f98;';
+
+    const messageStyle = 'font-size:13px; padding:10px 12px; border-radius:10px; ' +
+      (s.messageIsError ? 'background:#FBEDEC; color:#c0392b;' : 'background:#EEF7F8; color:#0E7C8C;');
+
+    return {
+      notConfigured: s.notConfigured,
+      tabLoginStyle: s.tab === 'login' ? tabActive : tabInactive,
+      tabSignupStyle: s.tab === 'signup' ? tabActive : tabInactive,
+      tabResetStyle: s.tab === 'reset' ? tabActive : tabInactive,
+      onTabLogin: () => this.setTab('login'),
+      onTabSignup: () => this.setTab('signup'),
+      onTabReset: () => this.setTab('reset'),
+      showLoginForm: s.tab === 'login',
+      showSignupForm: s.tab === 'signup',
+      showResetForm: s.tab === 'reset',
+      email: s.email,
+      password: s.password,
+      fullName: s.fullName,
+      onEmailChange: (e) => this.setState({ email: e.target.value }),
+      onPasswordChange: (e) => this.setState({ password: e.target.value }),
+      onFullNameChange: (e) => this.setState({ fullName: e.target.value }),
+      onLogin: this.handleLogin,
+      onSignup: this.handleSignup,
+      onReset: this.handleReset,
+      loading: s.loading,
+      hasMessage: !!s.messageText,
+      messageText: s.messageText,
+      messageStyle,
+      submitLabel: s.loading ? 'Aguarde…' : (s.tab === 'login' ? 'Entrar' : s.tab === 'signup' ? 'Criar conta' : 'Enviar link')
+    };
+  }
+}
+
+</script>
+</body>
+</html>

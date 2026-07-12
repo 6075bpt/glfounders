@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <template id="__bundler_thumbnail">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+      <rect width="200" height="200" fill="#ffffff"></rect>
+      <rect x="60" y="60" width="80" height="80" rx="14" fill="#14161a"></rect>
+      <text x="100" y="108" text-anchor="middle" font-family="sans-serif" font-weight="800" font-size="26" fill="#e7e7e7">GL</text>
+    </svg>
+  </template>
+  <meta charset="utf-8"></meta>
+  <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <title>{{ pageTitle }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"></link>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"></link>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0; }
+    a { color: #0E7C8C; text-decoration: none; }
+    a:hover { color: #0A5C68; }
+    .post-content p { margin: 0 0 18px; }
+    .post-content h2 { margin: 32px 0 14px; font-size: 24px; }
+    .post-content img { max-width: 100%; border-radius: 12px; }
+  </style>
+</helmet>
+
+<div style="font-family: 'Poppins', sans-serif; background:#ffffff; color:#16181d; min-height:100vh;">
+
+  <header style="display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 5vw; border-bottom:1px solid #eef0f2;">
+    <a href="./GL Metodo G3.dc.html" style="display:flex; align-items:center; gap:10px;">
+      <div style="width:38px; height:38px; border-radius:9px; background:#14161a; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+        <img src="assets/gl-logo.png" alt="GL" style="width:94%; height:94%; object-fit:contain;"></img>
+      </div>
+      <span style="font-weight:700; font-size:15px;">GL Negócios</span>
+    </a>
+    <a href="./Blog.dc.html" style="font-size:13.5px; font-weight:600; color:#5b5f68;">← Voltar ao blog</a>
+  </header>
+
+  <sc-if value="{{ loading }}" hint-placeholder-val="{{ true }}">
+    <div style="text-align:center; padding:80px; color:#8a8f98;">Carregando…</div>
+  </sc-if>
+
+  <sc-if value="{{ notFound }}" hint-placeholder-val="{{ false }}">
+    <div style="text-align:center; padding:80px; color:#8a8f98;">Artigo não encontrado.</div>
+  </sc-if>
+
+  <sc-if value="{{ hasPost }}" hint-placeholder-val="{{ false }}">
+    <article style="max-width:720px; margin:0 auto; padding:48px 5vw 90px;">
+      <span style="font-size:12px; font-weight:700; letter-spacing:0.6px; color:#0E7C8C;">{{ categoryLabel }}</span>
+      <h1 style="font-size:clamp(26px,4vw,40px); font-weight:800; letter-spacing:-0.8px; line-height:1.2; margin:12px 0 10px;">{{ title }}</h1>
+      <div style="font-size:13.5px; color:#8a8f98; margin-bottom:28px;">{{ dateLabel }}</div>
+      <div style="{{ coverStyle }}"></div>
+      <div class="post-content" style="font-size:16px; line-height:1.75; color:#31404a;" dangerouslySetInnerHTML="{{ contentHtml }}"></div>
+    </article>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { post: null, loading: true };
+
+  async componentDidMount() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const slug = params.get('slug');
+      const cfg = await import('./supabase-config.js');
+      if (!cfg.SUPABASE_CONFIGURED || !slug) {
+        this.setState({ loading: false });
+        return;
+      }
+      const supabase = await cfg.getSupabase();
+      const { data, error } = await supabase
+        .from('posts')
+        .select('*')
+        .eq('slug', slug)
+        .eq('status', 'published')
+        .maybeSingle();
+      if (error) throw error;
+      this.setState({ post: data, loading: false });
+    } catch (e) {
+      console.error(e);
+      this.setState({ loading: false });
+    }
+  }
+
+  renderVals() {
+    const post = this.state.post;
+    const dateLabel = post && post.published_at
+      ? new Date(post.published_at).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })
+      : '';
+    const coverStyle = post && post.cover_image_url
+      ? ("width:100%; aspect-ratio:16/9; border-radius:16px; background-image:url('" + post.cover_image_url + "'); background-size:cover; background-position:center; margin-bottom:28px;")
+      : "display:none;";
+    return {
+      loading: this.state.loading,
+      hasPost: !this.state.loading && !!post,
+      notFound: !this.state.loading && !post,
+      pageTitle: post ? (post.meta_title || post.title) : 'Blog — GL Negócios',
+      title: post ? post.title : '',
+      categoryLabel: post ? (post.category || 'Geral') : '',
+      dateLabel,
+      coverStyle,
+      contentHtml: { __html: post ? post.content : '' }
+    };
+  }
+}
+
+</script>
+</body>
+</html>
