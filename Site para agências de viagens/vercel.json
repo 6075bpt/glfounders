@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/Home.dc.html" },
+    { "source": "/agenciasgl", "destination": "/agenciasgl.dc.html" },
+    { "source": "/blog", "destination": "/Blog.dc.html" },
+    { "source": "/blog/:slug", "destination": "/BlogPost.dc.html" },
+    { "source": "/admin", "destination": "/Admin.dc.html" },
+    { "source": "/login", "destination": "/Login.dc.html" },
+    { "source": "/dashboard", "destination": "/Dashboard.dc.html" },
+    { "source": "/reset-password", "destination": "/ResetPassword.dc.html" }
+  ]
+}
