@@ -16,12 +16,12 @@
   <style>
     * { box-sizing: border-box; }
     body { margin: 0; padding: 0; }
-    a { color: #0033CC; text-decoration: none; }
-    a:hover { color: #001F80; }
+    a { color: #1a1a1a; text-decoration: none; }
+    a:hover { color: #000; }
     @keyframes orbitSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     @keyframes ringGlow {
-      0%, 100% { box-shadow: 0 0 22px 2px rgba(0,51,255,0.22); }
-      50% { box-shadow: 0 0 40px 8px rgba(0,51,255,0.45); }
+      0%, 100% { box-shadow: 0 0 22px 2px rgba(255,255,255,0.22); }
+      50% { box-shadow: 0 0 40px 8px rgba(255,255,255,0.45); }
     }
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(16px); }
@@ -39,15 +39,15 @@
       100% { background-position: 200% 50%; }
     }
     @keyframes orbitDepth {
-      0%   { transform: translate(-50%, -50%) translate(0px, -128px) scale(0.5); }
-      25%  { transform: translate(-50%, -50%) translate(122px, -8px) scale(0.8); }
-      50%  { transform: translate(-50%, -50%) translate(0px, 58px) scale(1.7); }
-      75%  { transform: translate(-50%, -50%) translate(-122px, -8px) scale(0.8); }
-      100% { transform: translate(-50%, -50%) translate(0px, -128px) scale(0.5); }
+      0%   { transform: translate(-50%, -50%) translate(0px, -128px) scale(0.65); }
+      25%  { transform: translate(-50%, -50%) translate(122px, -8px) scale(1); }
+      50%  { transform: translate(-50%, -50%) translate(0px, 58px) scale(2.05); }
+      75%  { transform: translate(-50%, -50%) translate(-122px, -8px) scale(1); }
+      100% { transform: translate(-50%, -50%) translate(0px, -128px) scale(0.65); }
     }
     @keyframes iconPulse {
-      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,51,204,0.22); }
-      50% { transform: scale(1.08); box-shadow: 0 0 0 9px rgba(0,51,204,0.08); }
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0.22); }
+      50% { transform: scale(1.08); box-shadow: 0 0 0 9px rgba(255,255,255,0.08); }
     }
     @keyframes logoFadeIn {
       from { opacity: 0; transform: translateY(6px); }
@@ -60,33 +60,14 @@
   </style>
 </helmet>
 
-<div style="font-family: 'Poppins', sans-serif; background: #ffffff; color: #0A0A2E; min-height: 100vh; overflow-x: hidden;">
-
-  <!-- HEADER -->
-  <header style="display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap; padding:18px 5vw; position:sticky; top:0; background:rgba(255,255,255,0.92); backdropFilter:blur(10px); z-index:40; border-bottom:1px solid #eef0f5;">
-    <a href="./Home.dc.html" style="display:flex; align-items:center; gap:12px;">
-      <div style="position:relative; width:52px; height:44px; flex-shrink:0;">
-        <img src="assets/gl-logo-black.png" alt="GL Negócios" style="width:100%; height:100%; object-fit:contain; display:block; animation: logoFadeIn 0.8s ease-out both;"></img>
-      </div>
-      <span style="font-weight:700; font-size:15px; color:#0A0A2E;">GL Negócios</span>
-    </a>
-    <nav style="display:flex; align-items:center; gap:26px; flex-wrap:wrap;">
-      <a href="#metodo" style="font-size:13.5px; font-weight:600; color:#3a3d52;">Método G3</a>
-      <a href="#servicos" style="font-size:13.5px; font-weight:600; color:#3a3d52;">Serviços</a>
-      <a href="#para-quem" style="font-size:13.5px; font-weight:600; color:#3a3d52;">Para quem</a>
-      <a href="./Blog.dc.html" style="font-size:13.5px; font-weight:600; color:#3a3d52;">Blog</a>
-      <a href="{{ waLink }}" target="_blank" rel="noopener" style="{{ neonBtnStyle }}" style-hover="transform:translateY(-2px);">
-        Falar com a GL
-      </a>
-    </nav>
-  </header>
+<div style="font-family: 'Poppins', sans-serif; background: #ffffff; color: #1a1a1a; min-height: 100vh; overflow-x: hidden;">
 
   <!-- DOBRA 1 — HERO (branco) -->
   <section style="padding:64px 5vw 80px; display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:48px; align-items:center; max-width:1240px; margin:0 auto;">
     <div style="display:flex; flex-direction:column; gap:22px; max-width:560px;">
-      <h1 style="font-size:clamp(30px, 4.6vw, 50px); font-weight:800; line-height:1.15; margin:0; letter-spacing:-1px; color:#0A0A2E;">
+      <h1 style="font-size:clamp(30px, 4.6vw, 50px); font-weight:800; line-height:1.15; margin:0; letter-spacing:-1px; color:#1a1a1a;">
         Seu negócio não precisa de mais anúncios.<br>
-        Precisa de um <span style="color:#0033CC;">ecossistema.</span>
+        Precisa de um <span style="position:relative; display:inline-block; color:#1a1a1a;">ecossistema.<span style="position:absolute; left:0; right:0; bottom:2px; height:8px; z-index:-1; background:linear-gradient(90deg, #0033FF, #25D366, #00C2FF, #0033FF); background-size:300% 100%; animation: neonShift 5s linear infinite; opacity:0.55;"></span></span>
       </h1>
       <p style="font-size:clamp(15px, 1.8vw, 18px); color:#55596b; line-height:1.65; margin:0;">
         A GL Negócios estrutura o crescimento digital de empresas que querem fazer dinheiro de verdade, com ecossistema, não com sorte.
@@ -98,24 +79,24 @@
       </div>
     </div>
 
-    <div style="position:relative; width:360px; height:360px; margin:0 auto; flex-shrink:0;">
-      <div style="position:absolute; top:50%; left:50%; width:132px; height:132px; animation: orbitDepth 20s linear infinite; animation-delay:0s;">
-        <div style="width:100%; height:100%; border-radius:24px; transform:rotate(-7deg); display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.6); box-shadow:0 16px 30px -8px rgba(0,51,255,0.28); padding:22px;">
+    <div style="position:relative; width:420px; height:420px; margin:0 auto; flex-shrink:0;">
+      <div style="position:absolute; top:50%; left:50%; width:172px; height:172px; animation: orbitDepth 20s linear infinite; animation-delay:0s;">
+        <div style="width:100%; height:100%; border-radius:28px; transform:rotate(-7deg); display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.6); box-shadow:0 16px 30px -8px rgba(0,51,255,0.28); padding:28px;">
           <img src="assets/instagram-logo-trim.png" alt="Instagram" style="width:100%; height:100%; object-fit:contain; display:block;"></img>
         </div>
       </div>
-      <div style="position:absolute; top:50%; left:50%; width:132px; height:132px; animation: orbitDepth 20s linear infinite; animation-delay:-5s;">
-        <div style="width:100%; height:100%; border-radius:24px; transform:rotate(5deg); display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.6); box-shadow:0 16px 30px -8px rgba(0,51,255,0.28); padding:22px;">
+      <div style="position:absolute; top:50%; left:50%; width:172px; height:172px; animation: orbitDepth 20s linear infinite; animation-delay:-5s;">
+        <div style="width:100%; height:100%; border-radius:28px; transform:rotate(5deg); display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.6); box-shadow:0 16px 30px -8px rgba(0,51,255,0.28); padding:28px;">
           <img src="assets/facebook-logo-trim.png" alt="Facebook" style="width:100%; height:100%; object-fit:contain; display:block;"></img>
         </div>
       </div>
-      <div style="position:absolute; top:50%; left:50%; width:132px; height:132px; animation: orbitDepth 20s linear infinite; animation-delay:-10s;">
-        <div style="width:100%; height:100%; border-radius:24px; transform:rotate(-4deg); display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.75); box-shadow:0 16px 30px -8px rgba(0,51,255,0.22); padding:28px 18px;">
+      <div style="position:absolute; top:50%; left:50%; width:172px; height:172px; animation: orbitDepth 20s linear infinite; animation-delay:-10s;">
+        <div style="width:100%; height:100%; border-radius:28px; transform:rotate(-4deg); display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.75); box-shadow:0 16px 30px -8px rgba(0,51,255,0.22); padding:36px 22px;">
           <img src="assets/meta-logo-trim.png" alt="Meta Ads" style="width:100%; height:100%; object-fit:contain; display:block;"></img>
         </div>
       </div>
-      <div style="position:absolute; top:50%; left:50%; width:132px; height:132px; animation: orbitDepth 20s linear infinite; animation-delay:-15s;">
-        <div style="width:100%; height:100%; border-radius:24px; transform:rotate(6deg); display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.75); box-shadow:0 16px 30px -8px rgba(0,51,255,0.22); padding:16px;">
+      <div style="position:absolute; top:50%; left:50%; width:172px; height:172px; animation: orbitDepth 20s linear infinite; animation-delay:-15s;">
+        <div style="width:100%; height:100%; border-radius:28px; transform:rotate(6deg); display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.75); box-shadow:0 16px 30px -8px rgba(0,51,255,0.22); padding:20px;">
           <img src="assets/google-ads-logo-trim.png" alt="Google Ads" style="width:100%; height:100%; object-fit:contain; display:block;"></img>
         </div>
       </div>
@@ -126,7 +107,7 @@
   <section ref="{{ statsRef }}" style="padding:70px 5vw 84px; background:#F7F8FB; border-top:1px solid #eef0f5; border-bottom:1px solid #eef0f5;">
     <div style="max-width:1080px; margin:0 auto;">
       <div style="text-align:center; margin-bottom:40px;">
-        <span style="font-size:12.5px; font-weight:700; letter-spacing:1.2px; color:#C23B3B;">O CUSTO DE NÃO TER UM SISTEMA</span>
+        <span style="font-size:12.5px; font-weight:700; letter-spacing:1.2px; color:#5b5b5b;">O CUSTO DE NÃO TER UM SISTEMA</span>
         <h2 style="font-size:clamp(22px, 3vw, 30px); font-weight:800; margin:12px 0 0; letter-spacing:-0.5px; max-width:640px; margin-left:auto; margin-right:auto; line-height:1.35;">
           O mercado brasileiro não perdoa quem depende só de sorte.
         </h2>
@@ -134,17 +115,17 @@
 
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:20px;">
         <div style="background:#fff; border:1px solid #eef0f5; border-radius:18px; padding:30px 24px; text-align:center;">
-          <div style="font-size:clamp(30px, 4vw, 42px); font-weight:800; color:#C23B3B; letter-spacing:-1px; font-variant-numeric:tabular-nums;">{{ stat1Display }}</div>
+          <div style="font-size:clamp(30px, 4vw, 42px); font-weight:800; color:#1a1a1a; letter-spacing:-1px; font-variant-numeric:tabular-nums;">{{ stat1Display }}</div>
           <div style="font-size:13.5px; color:#4a4e60; margin-top:12px; line-height:1.5;">novas empresas não sobrevivem aos primeiros anos de vida</div>
           <div style="font-size:11px; color:#9a9eb0; margin-top:10px;">Fonte: SEBRAE, via Infoqplan</div>
         </div>
         <div style="background:#fff; border:1px solid #eef0f5; border-radius:18px; padding:30px 24px; text-align:center;">
-          <div style="font-size:clamp(30px, 4vw, 42px); font-weight:800; color:#C23B3B; letter-spacing:-1px; font-variant-numeric:tabular-nums;">{{ stat2Display }}</div>
+          <div style="font-size:clamp(30px, 4vw, 42px); font-weight:800; color:#1a1a1a; letter-spacing:-1px; font-variant-numeric:tabular-nums;">{{ stat2Display }}</div>
           <div style="font-size:13.5px; color:#4a4e60; margin-top:12px; line-height:1.5;">estabelecimentos fecharam as portas no Brasil em 2025</div>
           <div style="font-size:11px; color:#9a9eb0; margin-top:10px;">Fonte: Receita Federal, via OndeAbrir</div>
         </div>
         <div style="background:#fff; border:1px solid #eef0f5; border-radius:18px; padding:30px 24px; text-align:center;">
-          <div style="font-size:clamp(30px, 4vw, 42px); font-weight:800; color:#C23B3B; letter-spacing:-1px; font-variant-numeric:tabular-nums;">{{ stat3Display }}</div>
+          <div style="font-size:clamp(30px, 4vw, 42px); font-weight:800; color:#1a1a1a; letter-spacing:-1px; font-variant-numeric:tabular-nums;">{{ stat3Display }}</div>
           <div style="font-size:13.5px; color:#4a4e60; margin-top:12px; line-height:1.5;">de crescimento a menos para quem não investe em marketing digital</div>
           <div style="font-size:11px; color:#9a9eb0; margin-top:10px;">Fonte: Infoqplan</div>
         </div>
@@ -152,8 +133,8 @@
     </div>
   </section>
 
-  <!-- DOBRA 2 (azul degradê) -->
-  <section style="background:linear-gradient(135deg, #0A0A2E 0%, #0033CC 100%); padding:80px 5vw;">
+  <!-- DOBRA 2 (preto) -->
+  <section style="background:linear-gradient(135deg, #0a0a0a 0%, #1e1e1e 100%); padding:80px 5vw;">
     <div style="max-width:760px; margin:0 auto; text-align:center; display:flex; flex-direction:column; gap:18px;">
       <h2 style="font-size:clamp(24px, 3.6vw, 36px); font-weight:800; color:#fff; margin:0; letter-spacing:-0.6px; line-height:1.25;">
         A maioria das empresas anuncia. Poucas crescem.
@@ -171,7 +152,7 @@
         <svg viewBox="0 0 560 220" style="width:100%; height:auto; display:block;">
           <line x1="10" y1="190" x2="550" y2="190" stroke="rgba(255,255,255,0.18)" strokeWidth="1.5"></line>
           <path d="M10,140 C130,150 220,158 300,168 C380,176 460,182 550,186" fill="none" stroke="rgba(255,255,255,0.28)" strokeWidth="3" strokeLinecap="round" strokeDasharray="900" style="{{ chartSemStyle }}"></path>
-          <path d="M10,150 C130,120 220,80 300,55 C380,32 460,18 550,10" fill="none" stroke="#5FE3A0" strokeWidth="3.5" strokeLinecap="round" strokeDasharray="900" style="{{ chartGLStyle }}"></path>
+          <path d="M10,150 C130,120 220,80 300,55 C380,32 460,18 550,10" fill="none" stroke="#ffffff" strokeWidth="3.5" strokeLinecap="round" strokeDasharray="900" style="{{ chartGLStyle }}"></path>
           <text x="10" y="208" fontSize="12" fontWeight="600" fill="rgba(255,255,255,0.55)" fontFamily="Poppins, sans-serif">hoje</text>
           <text x="510" y="208" fontSize="12" fontWeight="600" fill="rgba(255,255,255,0.55)" fontFamily="Poppins, sans-serif">12 meses</text>
         </svg>
@@ -182,7 +163,7 @@
   <!-- DOBRA 3 — MÉTODO G3 (branco) -->
   <section id="metodo" style="padding:80px 5vw; max-width:1160px; margin:0 auto;">
     <div style="text-align:center; margin-bottom:48px; display:flex; flex-direction:column; align-items:center; gap:14px;">
-      <span style="font-size:12.5px; font-weight:700; letter-spacing:1.2px; color:#0033CC;">MÉTODO G3</span>
+      <span style="font-size:12.5px; font-weight:700; letter-spacing:1.2px; color:#5b5b5b;">MÉTODO G3</span>
       <h2 style="font-size:clamp(24px, 3.4vw, 34px); font-weight:800; margin:0; letter-spacing:-0.6px; max-width:720px; line-height:1.3;">
         Desenvolvemos uma metodologia própria baseada em três movimentos que, juntos, criam crescimento previsível.
       </h2>
@@ -190,11 +171,11 @@
 
     <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
       <div style="border:1px solid #eef0f5; border-radius:20px; padding:32px 28px; display:flex; flex-direction:column; gap:14px; animation: fadeInUp 0.7s ease-out both; animation-delay:0s;">
-        <div style="width:52px; height:52px; border-radius:14px; background:#EEF1FC; display:flex; align-items:center; justify-content:center; animation: iconPulse 3.6s ease-in-out infinite; animation-delay:0s;">
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#0033CC" strokeWidth="2">
+        <div style="width:52px; height:52px; border-radius:14px; background:#f2f2f2; display:flex; align-items:center; justify-content:center; animation: iconPulse 3.6s ease-in-out infinite; animation-delay:0s;">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#1a1a1a" strokeWidth="2">
             <circle cx="12" cy="12" r="9"></circle>
             <circle cx="12" cy="12" r="5"></circle>
-            <circle cx="12" cy="12" r="1.2" fill="#0033CC"></circle>
+            <circle cx="12" cy="12" r="1.2" fill="#1a1a1a"></circle>
           </svg>
         </div>
         <span style="font-size:18px; font-weight:700;">Gerar</span>
@@ -202,8 +183,8 @@
       </div>
 
       <div style="border:1px solid #eef0f5; border-radius:20px; padding:32px 28px; display:flex; flex-direction:column; gap:14px; animation: fadeInUp 0.7s ease-out both; animation-delay:0.15s;">
-        <div style="width:52px; height:52px; border-radius:14px; background:#EEF1FC; display:flex; align-items:center; justify-content:center; animation: iconPulse 3.6s ease-in-out infinite; animation-delay:0.4s;">
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#0033CC" strokeWidth="2">
+        <div style="width:52px; height:52px; border-radius:14px; background:#f2f2f2; display:flex; align-items:center; justify-content:center; animation: iconPulse 3.6s ease-in-out infinite; animation-delay:0.4s;">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#1a1a1a" strokeWidth="2">
             <circle cx="12" cy="12" r="3.2"></circle>
             <path d="M12 3v3M12 18v3M4.2 7.8l2.6 1.5M17.2 14.7l2.6 1.5M4.2 16.2l2.6-1.5M17.2 9.3l2.6-1.5M3 12h3M18 12h3"></path>
           </svg>
@@ -213,8 +194,8 @@
       </div>
 
       <div style="border:1px solid #eef0f5; border-radius:20px; padding:32px 28px; display:flex; flex-direction:column; gap:14px; animation: fadeInUp 0.7s ease-out both; animation-delay:0.3s;">
-        <div style="width:52px; height:52px; border-radius:14px; background:#EEF1FC; display:flex; align-items:center; justify-content:center; animation: iconPulse 3.6s ease-in-out infinite; animation-delay:0.8s;">
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#0033CC" strokeWidth="2">
+        <div style="width:52px; height:52px; border-radius:14px; background:#f2f2f2; display:flex; align-items:center; justify-content:center; animation: iconPulse 3.6s ease-in-out infinite; animation-delay:0.8s;">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#1a1a1a" strokeWidth="2">
             <path d="M3 20h18"></path>
             <path d="M6 20v-5M11 20V9M16 20v-9M21 20V5" strokeLinecap="round"></path>
           </svg>
@@ -232,8 +213,8 @@
     </a>
   </section>
 
-  <!-- DOBRA 4 — SERVIÇOS (azul degradê) -->
-  <section id="servicos" style="background:linear-gradient(135deg, #0A0A2E 0%, #0033CC 100%); padding:80px 5vw;">
+  <!-- DOBRA 4 — SERVIÇOS (preto) -->
+  <section id="servicos" style="background:linear-gradient(135deg, #0a0a0a 0%, #1e1e1e 100%); padding:80px 5vw;">
     <div style="max-width:1160px; margin:0 auto;">
       <h2 style="font-size:clamp(24px, 3.6vw, 36px); font-weight:800; color:#fff; margin:0 0 44px; text-align:center; letter-spacing:-0.6px;">
         O Futuro é crescer.
@@ -261,8 +242,8 @@
     </div>
   </section>
 
-  <!-- DOBRA FINAL — CTA (azul degradê) -->
-  <section style="background:linear-gradient(135deg, #0A0A2E 0%, #0033CC 100%); padding:90px 5vw;">
+  <!-- DOBRA FINAL — CTA (preto) -->
+  <section style="background:linear-gradient(135deg, #0a0a0a 0%, #1e1e1e 100%); padding:90px 5vw;">
     <div style="max-width:640px; margin:0 auto; text-align:center; display:flex; flex-direction:column; align-items:center; gap:22px;">
       <h2 style="font-size:clamp(26px, 3.8vw, 40px); font-weight:800; color:#fff; margin:0; letter-spacing:-0.7px; line-height:1.25;">
         Seu próximo nível já existe. A gente constrói o caminho até ele.
@@ -277,7 +258,7 @@
   </section>
 
   <!-- FOOTER -->
-  <footer style="background:#0A0A2E; padding:36px 5vw; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+  <footer style="background:#0a0a0a; padding:36px 5vw; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
     <div style="display:flex; align-items:center; gap:10px;">
       <div style="width:52px; height:44px; flex-shrink:0;">
         <img src="assets/gl-logo-white.png" alt="GL Negócios" style="width:100%; height:100%; object-fit:contain; display:block;"></img>
@@ -332,6 +313,7 @@ class Component extends DCLogic {
     const stat1Display = Math.round(2 * p) + ' em cada 10';
     const stat2Display = (2.92 * p).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' milhões';
     const stat3Display = (2.8 * p).toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + 'x menos';
+    void 0;
     const iconWrap = (inner) => "<svg viewBox='0 0 24 24' width='20' height='20' fill='none' stroke='white' stroke-width='2'>" + inner + "</svg>";
     const services = [
       { label: 'Tráfego Pago, Meta Ads e Google Ads', iconHtml: { __html: iconWrap("<path d='M4 4l16 8-7 2-2 7-7-17z'/>") }, delay: '0s', pulseDelay: '0s' },
@@ -345,10 +327,10 @@ class Component extends DCLogic {
     const mode = this.state.chartMode;
     const btnBase = 'padding:9px 18px; border-radius:100px; font-weight:600; font-size:12.5px; border:1.5px solid; cursor:pointer; font-family: Poppins, sans-serif; transition: all 0.2s ease; white-space:nowrap;';
     const btnGLStyle = btnBase + (mode === 'gl'
-      ? 'background:#5FE3A0; color:#0A0A2E; border-color:#5FE3A0;'
+      ? 'background:#fff; color:#0a0a0a; border-color:#fff;'
       : 'background:transparent; color:rgba(255,255,255,0.7); border-color:rgba(255,255,255,0.3);');
     const btnSemStyle = btnBase + (mode === 'sem'
-      ? 'background:#5FE3A0; color:#0A0A2E; border-color:#5FE3A0;'
+      ? 'background:#fff; color:#0a0a0a; border-color:#fff;'
       : 'background:transparent; color:rgba(255,255,255,0.7); border-color:rgba(255,255,255,0.3);');
 
     const drawn = 'transition: stroke-dashoffset 1.4s ease-out, opacity 0.3s ease;';

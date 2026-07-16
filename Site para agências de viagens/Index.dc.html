@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta charset="utf-8"></meta>
+  <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <title>GL Negócios · Marketing e Tecnologia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"></link>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"></link>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+    a { color: #1a1a1a; text-decoration: none; }
+    a:hover { color: #000; }
+    @keyframes orbitSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes ringGlow { 0%, 100% { box-shadow: 0 0 22px 2px rgba(0,51,255,0.22); } 50% { box-shadow: 0 0 40px 8px rgba(0,51,255,0.45); } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes orbitPulse { 0% { transform: scale(1.55); } 25% { transform: scale(0.95); } 50% { transform: scale(0.5); } 75% { transform: scale(0.95); } 100% { transform: scale(1.55); } }
+    @keyframes neonShift { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+    @keyframes iconPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,51,204,0.22); } 50% { transform: scale(1.08); box-shadow: 0 0 0 9px rgba(0,51,204,0.08); } }
+  </style>
+</helmet>
+
+<div style="font-family: 'Poppins', sans-serif; background:#0a0a0a; color:#fff; min-height:100vh;">
+
+  <header style="display:flex; align-items:center; justify-content:space-between; gap:24px; padding:16px 5vw; position:sticky; top:0; background:rgba(10,10,10,0.95); backdrop-filter:blur(8px); z-index:50; border-bottom:1px solid rgba(255,255,255,0.08);">
+    <a href="#" style="display:flex; align-items:center; gap:12px;">
+      <div style="width:52px; height:44px; flex-shrink:0;">
+        <img src="assets/gl-logo-white.png" alt="GL Negócios" style="width:100%; height:100%; object-fit:contain; display:block;"></img>
+      </div>
+      <span style="font-weight:700; font-size:15px; color:#fff;">GL Negócios</span>
+    </a>
+
+    <nav style="display:flex; align-items:center; gap:32px; flex:1; justify-content:center;">
+      <a href="#" style="font-size:13.5px; font-weight:600; color:rgba(255,255,255,0.8); transition:color 0.2s;" style-hover="color:#fff;">Home</a>
+      <a href="./Blog.dc.html" style="font-size:13.5px; font-weight:600; color:rgba(255,255,255,0.8); transition:color 0.2s;" style-hover="color:#fff;">OCluBe</a>
+      <a href="#sobre" style="font-size:13.5px; font-weight:600; color:rgba(255,255,255,0.8); transition:color 0.2s;" style-hover="color:#fff;">Sobre</a>
+      <a href="#contato" style="font-size:13.5px; font-weight:600; color:rgba(255,255,255,0.8); transition:color 0.2s;" style-hover="color:#fff;">Contato</a>
+    </nav>
+
+    <a href="{{ waLink }}" target="_blank" rel="noopener" style="{{ neonBtnStyle }}" style-hover="transform:translateY(-2px);">
+      Falar com a GL
+    </a>
+  </header>
+
+  <dc-import name="Home" hint-size="100%,auto"></dc-import>
+
+</div>
+
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const neonBase = 'display:inline-flex; align-items:center; gap:8px; color:#fff; border-radius:100px; font-weight:700; font-family: Poppins, sans-serif; text-decoration:none; border:none; cursor:pointer; background:linear-gradient(90deg, #0033FF, #25D366, #00C2FF, #0033FF); background-size:300% 100%; animation: neonShift 5s linear infinite; transition: transform 0.2s ease;';
+    const neonBtnStyle = neonBase + ' padding:11px 20px; font-size:13.5px; white-space:nowrap;';
+    return {
+      waLink: 'https://wa.me/5569992774553',
+      neonBtnStyle
+    };
+  }
+}
+</script>
+</body>
+</html>
